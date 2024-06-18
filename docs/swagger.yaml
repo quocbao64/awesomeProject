@@ -1,0 +1,348 @@
+basePath: /api/v1
+definitions:
+  dao.Cart:
+    properties:
+      customer_id:
+        type: integer
+      id:
+        type: integer
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+    type: object
+  dao.Customer:
+    properties:
+      address:
+        type: string
+      carts:
+        items:
+          $ref: '#/definitions/dao.Cart'
+        type: array
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      orders:
+        items:
+          $ref: '#/definitions/dao.Order'
+        type: array
+      password:
+        type: string
+      payments:
+        items:
+          $ref: '#/definitions/dao.Payment'
+        type: array
+      phone_number:
+        type: string
+      shipment:
+        items:
+          $ref: '#/definitions/dao.Shipment'
+        type: array
+      updated_at:
+        type: string
+      wish_list:
+        items:
+          $ref: '#/definitions/dao.WishList'
+        type: array
+    type: object
+  dao.Order:
+    properties:
+      created_at:
+        type: string
+      customer_id:
+        type: integer
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      order_date:
+        type: string
+      orderItems:
+        items:
+          $ref: '#/definitions/dao.OrderItem'
+        type: array
+      payment_id:
+        type: integer
+      shipment_id:
+        type: integer
+      total_price:
+        type: number
+      updated_at:
+        type: string
+    type: object
+  dao.OrderItem:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      order_id:
+        type: integer
+      price:
+        type: number
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  dao.Payment:
+    properties:
+      amount:
+        type: number
+      created_at:
+        type: string
+      customer_id:
+        type: integer
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      orders:
+        items:
+          $ref: '#/definitions/dao.Order'
+        type: array
+      payment_date:
+        type: string
+      payment_method:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  dao.Shipment:
+    properties:
+      address:
+        type: string
+      city:
+        type: string
+      country:
+        type: string
+      created_at:
+        type: string
+      customer_id:
+        type: integer
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      orders:
+        items:
+          $ref: '#/definitions/dao.Order'
+        type: array
+      shipment_date:
+        type: string
+      state:
+        type: string
+      updated_at:
+        type: string
+      zip_code:
+        type: string
+    type: object
+  dao.WishList:
+    properties:
+      created_at:
+        type: string
+      customer_id:
+        type: integer
+      deleted_at:
+        type: string
+      id:
+        type: integer
+      product_id:
+        type: integer
+      updated_at:
+        type: string
+    type: object
+  dto.CustomerResponse:
+    properties:
+      address:
+        type: string
+      created_at:
+        type: string
+      deleted_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      phone_number:
+        type: string
+      updated_at:
+        type: string
+    type: object
+  service.LoginResponse:
+    properties:
+      access_token:
+        type: string
+      refresh_token:
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:3005
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - multipart/form-data
+      description: Login
+      parameters:
+      - description: email
+        in: formData
+        name: email
+        required: true
+        type: string
+      - description: password
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/service.LoginResponse'
+      summary: Login
+      tags:
+      - auth
+  /customers:
+    get:
+      consumes:
+      - application/json
+      description: Get customer by email
+      parameters:
+      - description: Customer Email
+        in: query
+        name: email
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.CustomerResponse'
+      summary: Get customer by email
+      tags:
+      - customers
+    post:
+      consumes:
+      - application/json
+      description: Create a new customer
+      parameters:
+      - description: Customer Body
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/dao.Customer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.CustomerResponse'
+      summary: Create a new customer
+      tags:
+      - customers
+  /customers/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a customer
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.CustomerResponse'
+      summary: Delete a customer
+      tags:
+      - customers
+    get:
+      consumes:
+      - application/json
+      description: Get customer by ID
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.CustomerResponse'
+      summary: Get customer by ID
+      tags:
+      - customers
+    put:
+      consumes:
+      - application/json
+      description: Update a customer
+      parameters:
+      - description: Customer ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Customer Body
+        in: body
+        name: customer
+        required: true
+        schema:
+          $ref: '#/definitions/dao.Customer'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.CustomerResponse'
+      summary: Update a customer
+      tags:
+      - customers
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
