@@ -36,6 +36,15 @@ var categoryRepoSet = wire.NewSet(repository.CategoryRepositoryInit,
 var categoryCtrlSet = wire.NewSet(controller.CategoryControllerInit,
 	wire.Bind(new(controller.CategoryController), new(*controller.CategoryControllerImpl)))
 
+var productSvcSet = wire.NewSet(service.ProductServiceInit,
+	wire.Bind(new(service.ProductService), new(*service.ProductServiceImpl)))
+
+var productRepoSet = wire.NewSet(repository.ProductRepositoryInit,
+	wire.Bind(new(repository.ProductRepository), new(*repository.ProductRepositoryImpl)))
+
+var productCtrlSet = wire.NewSet(controller.ProductControllerInit,
+	wire.Bind(new(controller.ProductController), new(*controller.ProductControllerImpl)))
+
 func Init() *Initialize {
 	wire.Build(
 		db,
@@ -47,6 +56,9 @@ func Init() *Initialize {
 		categoryRepoSet,
 		categorySvcSet,
 		categoryCtrlSet,
+		productRepoSet,
+		productSvcSet,
+		productCtrlSet,
 		NewInitialize)
 	return nil
 }

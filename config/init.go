@@ -15,6 +15,9 @@ type Initialize struct {
 	categoryRepo repository.CategoryRepository
 	categorySvc  service.CategoryService
 	CategoryCtrl controller.CategoryController
+	productRepo  repository.ProductRepository
+	productSvc   service.ProductService
+	ProductCtrl  controller.ProductController
 }
 
 func NewInitialize(
@@ -26,6 +29,9 @@ func NewInitialize(
 	categoryRepo repository.CategoryRepository,
 	categorySvc service.CategoryService,
 	categoryCtrl controller.CategoryController,
+	productRepo repository.ProductRepository,
+	productSvc service.ProductService,
+	productCtrl controller.ProductController,
 ) *Initialize {
 	return &Initialize{
 		customerRepo: customerRepo,
@@ -36,5 +42,8 @@ func NewInitialize(
 		categoryRepo: categoryRepo,
 		categorySvc:  categorySvc,
 		CategoryCtrl: categoryCtrl,
+		productRepo:  productRepo,
+		productSvc:   productSvc,
+		ProductCtrl:  productCtrl,
 	}
 }
