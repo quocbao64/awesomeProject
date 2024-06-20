@@ -1,11 +1,11 @@
 package service
 
 import (
-	"awesomeProject/app/constant"
-	"awesomeProject/app/domain/dao"
-	"awesomeProject/app/domain/dto"
-	"awesomeProject/app/pkg"
-	"awesomeProject/app/repository"
+	"awesomeProject/internal/app/constant"
+	"awesomeProject/internal/app/domain/dao"
+	"awesomeProject/internal/app/domain/dto"
+	"awesomeProject/internal/app/pkg"
+	"awesomeProject/internal/app/repository"
 	"errors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"

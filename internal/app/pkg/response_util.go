@@ -1,8 +1,8 @@
 package pkg
 
 import (
-	"awesomeProject/app/constant"
-	"awesomeProject/app/domain/dto"
+	"awesomeProject/internal/app/constant"
+	"awesomeProject/internal/app/domain/dto"
 )
 
 func Null() interface{} {

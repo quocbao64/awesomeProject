@@ -7,9 +7,9 @@
 package config
 
 import (
-	"awesomeProject/app/controller"
-	"awesomeProject/app/repository"
-	"awesomeProject/app/service"
+	"awesomeProject/internal/app/controller"
+	"awesomeProject/internal/app/repository"
+	"awesomeProject/internal/app/service"
 	"github.com/google/wire"
 )
 

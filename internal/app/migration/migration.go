@@ -1,7 +1,7 @@
 package migration
 
 import (
-	"awesomeProject/app/domain/dao"
+	"awesomeProject/internal/app/domain/dao"
 	"gorm.io/gorm"
 )
 

@@ -1,9 +1,9 @@
 package middleware
 
 import (
-	"awesomeProject/app/auth"
-	"awesomeProject/app/constant"
-	"awesomeProject/app/pkg"
+	"awesomeProject/internal/app/auth"
+	"awesomeProject/internal/app/constant"
+	"awesomeProject/internal/app/pkg"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

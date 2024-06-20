@@ -1,9 +1,9 @@
 package main
 
 import (
-	"awesomeProject/app/migration"
-	"awesomeProject/app/routes"
 	"awesomeProject/config"
+	"awesomeProject/internal/app/migration"
+	"awesomeProject/internal/app/routes"
 	"github.com/joho/godotenv"
 	"gorm.io/gorm"
 	"os"

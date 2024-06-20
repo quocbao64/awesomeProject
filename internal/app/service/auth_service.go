@@ -1,10 +1,10 @@
 package service
 
 import (
-	"awesomeProject/app/auth"
-	"awesomeProject/app/constant"
-	"awesomeProject/app/pkg"
-	"awesomeProject/app/repository"
+	"awesomeProject/internal/app/auth"
+	"awesomeProject/internal/app/constant"
+	"awesomeProject/internal/app/pkg"
+	"awesomeProject/internal/app/repository"
 	"errors"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"

@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"awesomeProject/app/middleware"
 	"awesomeProject/config"
+	"awesomeProject/internal/app/middleware"
 	"github.com/gin-gonic/gin"
 )
 
