@@ -11,6 +11,23 @@ definitions:
       quantity:
         type: integer
     type: object
+  dao.Category:
+    properties:
+      created_at:
+        type: string
+      deleted_at:
+        $ref: '#/definitions/gorm.DeletedAt'
+      id:
+        type: integer
+      name:
+        type: string
+      products:
+        items:
+          $ref: '#/definitions/dao.Product'
+        type: array
+      updated_at:
+        type: string
+    type: object
   dao.Customer:
     properties:
       address:
@@ -22,7 +39,7 @@ definitions:
       created_at:
         type: string
       deleted_at:
-        type: string
+        $ref: '#/definitions/gorm.DeletedAt'
       email:
         type: string
       id:
@@ -59,7 +76,7 @@ definitions:
       customer_id:
         type: integer
       deleted_at:
-        type: string
+        $ref: '#/definitions/gorm.DeletedAt'
       id:
         type: integer
       order_date:
@@ -82,7 +99,7 @@ definitions:
       created_at:
         type: string
       deleted_at:
-        type: string
+        $ref: '#/definitions/gorm.DeletedAt'
       id:
         type: integer
       order_id:
@@ -105,7 +122,7 @@ definitions:
       customer_id:
         type: integer
       deleted_at:
-        type: string
+        $ref: '#/definitions/gorm.DeletedAt'
       id:
         type: integer
       orders:
@@ -118,6 +135,39 @@ definitions:
         type: string
       updated_at:
         type: string
+    type: object
+  dao.Product:
+    properties:
+      carts:
+        items:
+          $ref: '#/definitions/dao.Cart'
+        type: array
+      category_id:
+        type: integer
+      created_at:
+        type: string
+      deleted_at:
+        $ref: '#/definitions/gorm.DeletedAt'
+      description:
+        type: string
+      id:
+        type: integer
+      order_items:
+        items:
+          $ref: '#/definitions/dao.OrderItem'
+        type: array
+      price:
+        type: number
+      sku:
+        type: string
+      stock:
+        type: integer
+      updated_at:
+        type: string
+      wish_list:
+        items:
+          $ref: '#/definitions/dao.WishList'
+        type: array
     type: object
   dao.Shipment:
     properties:
@@ -132,7 +182,7 @@ definitions:
       customer_id:
         type: integer
       deleted_at:
-        type: string
+        $ref: '#/definitions/gorm.DeletedAt'
       id:
         type: integer
       orders:
@@ -155,7 +205,7 @@ definitions:
       customer_id:
         type: integer
       deleted_at:
-        type: string
+        $ref: '#/definitions/gorm.DeletedAt'
       id:
         type: integer
       product_id:
@@ -170,7 +220,7 @@ definitions:
       created_at:
         type: string
       deleted_at:
-        type: string
+        $ref: '#/definitions/gorm.DeletedAt'
       email:
         type: string
       id:
@@ -181,6 +231,14 @@ definitions:
         type: string
       updated_at:
         type: string
+    type: object
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
     type: object
   service.LoginResponse:
     properties:
@@ -232,6 +290,116 @@ paths:
       summary: Login
       tags:
       - auth
+  /categories:
+    get:
+      consumes:
+      - application/json
+      description: Get all categories
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dao.Category'
+      summary: Get all categories
+      tags:
+      - categories
+    post:
+      consumes:
+      - application/json
+      description: Create category
+      parameters:
+      - description: Category Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dao.Category'
+      summary: Create category
+      tags:
+      - categories
+  /categories/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete category
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete category
+      tags:
+      - categories
+    get:
+      consumes:
+      - application/json
+      description: Get category by ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dao.Category'
+      summary: Get category by ID
+      tags:
+      - categories
+    put:
+      consumes:
+      - application/json
+      description: Update category
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Category Name
+        in: body
+        name: name
+        required: true
+        schema:
+          type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dao.Category'
+      summary: Update category
+      tags:
+      - categories
   /customers:
     get:
       consumes:

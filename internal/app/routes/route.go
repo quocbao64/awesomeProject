@@ -17,6 +17,7 @@ func Route(init *config.Initialize) *gin.Engine {
 	{
 		CustomerRoute(init, api.Group("/customers"))
 		AuthRoute(init, api.Group("/auth"))
+		CategoryRoute(init, api.Group("/categories"))
 	}
 
 	api.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))

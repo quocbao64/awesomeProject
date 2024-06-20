@@ -22,7 +22,10 @@ func Init() *Initialize {
 	customerControllerImpl := controller.CustomerControllerInit(customerServiceImpl)
 	authServiceImpl := service.AuthServiceInit(customerRepositoryImpl)
 	authControllerImpl := controller.AuthControllerInit(authServiceImpl)
-	initialize := NewInitialize(customerRepositoryImpl, customerServiceImpl, customerControllerImpl, authControllerImpl, authServiceImpl)
+	categoryRepositoryImpl := repository.CategoryRepositoryInit(gormDB)
+	categoryServiceImpl := service.CategoryServiceInit(categoryRepositoryImpl)
+	categoryControllerImpl := controller.CategoryControllerInit(categoryServiceImpl)
+	initialize := NewInitialize(customerRepositoryImpl, customerServiceImpl, customerControllerImpl, authControllerImpl, authServiceImpl, categoryRepositoryImpl, categoryServiceImpl, categoryControllerImpl)
 	return initialize
 }
 
@@ -39,3 +42,9 @@ var customerCtrlSet = wire.NewSet(controller.CustomerControllerInit, wire.Bind(n
 var authSvcSet = wire.NewSet(service.AuthServiceInit, wire.Bind(new(service.AuthService), new(*service.AuthServiceImpl)))
 
 var authCtrlSet = wire.NewSet(controller.AuthControllerInit, wire.Bind(new(controller.AuthController), new(*controller.AuthControllerImpl)))
+
+var categorySvcSet = wire.NewSet(service.CategoryServiceInit, wire.Bind(new(service.CategoryService), new(*service.CategoryServiceImpl)))
+
+var categoryRepoSet = wire.NewSet(repository.CategoryRepositoryInit, wire.Bind(new(repository.CategoryRepository), new(*repository.CategoryRepositoryImpl)))
+
+var categoryCtrlSet = wire.NewSet(controller.CategoryControllerInit, wire.Bind(new(controller.CategoryController), new(*controller.CategoryControllerImpl)))

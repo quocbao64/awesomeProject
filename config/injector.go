@@ -27,7 +27,26 @@ var authSvcSet = wire.NewSet(service.AuthServiceInit,
 var authCtrlSet = wire.NewSet(controller.AuthControllerInit,
 	wire.Bind(new(controller.AuthController), new(*controller.AuthControllerImpl)))
 
+var categorySvcSet = wire.NewSet(service.CategoryServiceInit,
+	wire.Bind(new(service.CategoryService), new(*service.CategoryServiceImpl)))
+
+var categoryRepoSet = wire.NewSet(repository.CategoryRepositoryInit,
+	wire.Bind(new(repository.CategoryRepository), new(*repository.CategoryRepositoryImpl)))
+
+var categoryCtrlSet = wire.NewSet(controller.CategoryControllerInit,
+	wire.Bind(new(controller.CategoryController), new(*controller.CategoryControllerImpl)))
+
 func Init() *Initialize {
-	wire.Build(db, customerSvcSet, customerRepoSet, customerCtrlSet, authCtrlSet, authSvcSet, NewInitialize)
+	wire.Build(
+		db,
+		customerSvcSet,
+		customerRepoSet,
+		customerCtrlSet,
+		authCtrlSet,
+		authSvcSet,
+		categoryRepoSet,
+		categorySvcSet,
+		categoryCtrlSet,
+		NewInitialize)
 	return nil
 }
